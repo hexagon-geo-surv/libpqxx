@@ -23,9 +23,11 @@ jobs:
       - run:
           name: Prepare postgres
           command: |
-            mkdir /tmp/db &&
-            chown postgres /tmp/db &&
-            su postgres -c '/usr/lib/postgresql/*/bin/initdb --pgdata /tmp/db --auth trust --nosync'
+	    createuser --createdb root
+	    createdb root
+            #mkdir /tmp/db &&
+            #chown postgres /tmp/db &&
+            #su postgres -c '/usr/lib/postgresql/*/bin/initdb --pgdata /tmp/db --auth trust --nosync'
       - run:
           name: Run postgres
           command: (su postgres -c '/usr/lib/postgresql/*/bin/postgres -D /tmp/db -k /tmp'
