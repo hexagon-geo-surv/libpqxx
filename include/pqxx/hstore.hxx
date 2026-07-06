@@ -42,31 +42,6 @@ struct hstore_end final
     return r != *this;
   }
 };
-
-
-/// Scan an unquoted hstore string.
-/** Set `IS_KEY` to `true` when scanning a key string, or to `false` when
- * scanning a value string.
- */
-template<encoding_group ENC, bool IS_KEY>
-inline constexpr std::size_t
-scan_unquoted_hstore_string(std::string_view input, std::size_t pos, sl loc)
-{
-  // This is where unquoted strings in hstore differ from unquoted strings in
-  // arrays or composite types.  Any un-escaped whitespace will terminate the
-  // string.
-  if constexpr (IS_KEY)
-  {
-    // In a key, an unescaped equals sign ('=') will end the string.
-    return scan_unquoted_string<
-      ENC, ',', ' ', '\f', '\t', '\n', '\r', '\v', '='>(input, pos, loc);
-  }
-  else
-  {
-    return scan_unquoted_string<ENC, ',', ' ', '\f', '\t', '\n', '\r', '\v'>(
-      input, pos, loc);
-  }
-}
 } // namespace pqxx::internal
 
 
@@ -138,18 +113,17 @@ public:
 
 private:
   /// Find the extent of the key or value string at `offset` in `m_input`.
-  /** Set `IS_KEY` to `true` when parsing a key, and to `false` when parsing a
-   * value.  There's a difference.  :-/
+  /** The `offset` must point at the string's exact starting character.  If
+   * there was any leading whitespace, it must come before `offset`.
    */
-  template<encoding_group ENC, bool IS_KEY>
+  template<encoding_group ENC>
   [[nodiscard]] std::size_t scan_string(std::size_t offset) const
   {
-    if ((std::size(m_input) > offset) and (m_input.at(offset) == '"'))
-      return pqxx::internal::scan_double_quoted_string<ENC, '\\'>(
-        m_input, offset, m_ctx.loc);
-    else
-      return pqxx::internal::scan_unquoted_hstore_string<ENC, IS_KEY>(
-        m_input, offset, m_ctx.loc);
+    if ((offset >= std::size(m_input)) or (m_input.at(offset) != '"'))
+      throw pqxx::conversion_error{
+        "Hstore string is not in double quotes.", m_ctx.loc};
+    return pqxx::internal::scan_double_quoted_string<ENC, '\\'>(
+      m_input, offset, m_ctx.loc);
   }
 
   /// Move ahead in the input buffer to the next entry.
@@ -176,10 +150,8 @@ private:
     // There is no further whitespace at m_offset.
     assert(pqxx::internal::skip_ascii_whitespace(m_input, here) == here);
 
-    // XXX: Backend parses "1=>,2" as "1" => ",2".
-
     // Scan the key string.
-    here = scan_string<ENC, true>(here);
+    here = scan_string<ENC>(here);
 
     auto const key_input = m_input.substr(m_offset, here - m_offset);
 
@@ -199,7 +171,7 @@ private:
         std::format("No value in hstore entry: '{}'", m_input), m_ctx.loc};
 
     auto const value_start{here};
-    here = scan_string<ENC, false>(here);
+    here = scan_string<ENC>(here);
 
     // The value can be null, but we can detect that later, during operator*(),
     // since m_value includes any quotes around the value.  So we'll be able to
@@ -214,13 +186,13 @@ private:
     // We don't care about encoding here.  In every supported encoding, any
     // character starting with an ASCII-range byte is a single-byte ASCII
     // character.
-    if (here < std::size(m_input)
+    if (here < std::size(m_input))
     {
-      if (m_input.at(here) != ','))
+      if (m_input.at(here) != ',')
         throw pqxx::conversion_error{
-	  std::format(
-	    "Expected comma in hstore at offset {}: {}", here, m_input),
-	    m_ctx.loc};
+          std::format(
+            "Expected comma in hstore at offset {}: {}", here, m_input),
+          m_ctx.loc};
       // Position for the next scan: skip comma and whitespace.
       ++here;
       here = pqxx::internal::skip_ascii_whitespace(m_input, here);

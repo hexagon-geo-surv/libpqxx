@@ -24,6 +24,7 @@ parse_hstore(std::string_view input, pqxx::ctx c)
 }
 
 
+/// Test parsing of empty hstore strings as converted to `KEY`/`VALUE`.
 template<typename KEY, typename VALUE>
 void check_empty_parse(pqxx::connection const &cx)
 {
@@ -50,31 +51,42 @@ void test_hstore_parse_parses_hstore(pqxx::test::context &)
   check_empty_parse<int, std::string_view>(cx);
   check_empty_parse<bool, double>(cx);
 
-  auto const c{make_context(cx)};
-
-  auto const basic_ints{parse_hstore<int, int>("1=>2", c)};
+  auto const basic_ints{
+    parse_hstore<int, int>("\"1\"=>\"2\"", make_context(cx))};
   PQXX_CHECK_EQUAL(std::size(basic_ints), 1u);
   PQXX_CHECK_EQUAL(basic_ints.at(0).first, 1);
   PQXX_CHECK_EQUAL(basic_ints.at(0).second, 2);
 
-  // XXX: Test "1=>2" (without space after the unquoted key).
-  // XXX: Test escaped equals sign in key
-  // XXX: Test quoted equals sign in key
-  // XXX: Test unescaped equals sign in key (should fail)
-  // XXX: Test unescaped equals sign in value (should work)
+  // XXX: Test a few types.
+  // XXX: Test null value.
 }
 
 
-void test_simple_hstore(pqxx::test::context &)
+/// Have the database represent `input` as an hstore.
+std::string query_hstore(pqxx::transaction_base &tx, std::string_view input)
+{
+  return tx.query_value<std::string>("SELECT $1::hstore", pqxx::params{input});
+}
+
+
+/// Get database's representation of `input` as an hstore, then parse it.
+template<typename KEY, typename VALUE>
+std::vector<std::pair<KEY, VALUE>> parse_representation(
+  pqxx::transaction_base &tx, std::string_view input, pqxx::ctx c)
+{
+  return parse_hstore<KEY, VALUE>(query_hstore(tx, input), c);
+}
+
+
+void test_hstore_parses_real_hstore(pqxx::test::context &)
 {
   pqxx::connection cx;
   pqxx::work tx{cx};
   if (not pqxx::test::have_extension(tx, "hstore"))
     return;
 
-  auto const empty_data{
-    parse_hstore<std::string, std::string>("", make_context(cx))};
-  PQXX_CHECK(empty_data.empty());
+  PQXX_CHECK(
+    (parse_representation<int, int>(tx, "", make_context(cx)).empty()));
 }
 
 // XXX: Test parsing of single-entry hstores.
@@ -83,5 +95,5 @@ void test_simple_hstore(pqxx::test::context &)
 } // namespace
 
 
-PQXX_REGISTER_TEST(test_simple_hstore);
+PQXX_REGISTER_TEST(test_hstore_parses_real_hstore);
 PQXX_REGISTER_TEST(test_hstore_parse_parses_hstore);
