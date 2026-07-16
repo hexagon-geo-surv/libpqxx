@@ -69,7 +69,7 @@ namespace pqxx
  * was committed), or whether it failed and got aborted.  (If this possibility
  * is a major concern to you, also have a look at the @ref robusttransaction
  * class.  It does not help make your transaction more likely to succeed, but
- * it tries harder to avoid these unknown states.
+ * it tries harder to avoid these unknown states.)
  *
  * The callback you pass to @ref perform takes no arguments.  If you're using
  * lambdas, the easy way to pass arguments is for the lambda to "capture" them
@@ -100,7 +100,7 @@ namespace pqxx
  */
 template<typename TRANSACTION_CALLBACK>
 inline std::invoke_result_t<TRANSACTION_CALLBACK>
-perform(TRANSACTION_CALLBACK &&callback, int attempts, sl loc = sl::current())
+perform(TRANSACTION_CALLBACK &&callback, int attempts = 3)
 
 {
   if (attempts <= 0)
@@ -144,18 +144,6 @@ perform(TRANSACTION_CALLBACK &&callback, int attempts, sl loc = sl::current())
     }
   }
   PQXX_UNREACHABLE;
-}
-
-
-/// Simple way to execute a transaction with automatic retry.
-/** @param callback Transaction code that can be called with no arguments.
- * @return Whatever your callback returns.
- */
-template<typename TRANSACTION_CALLBACK>
-inline std::invoke_result_t<TRANSACTION_CALLBACK>
-perform(TRANSACTION_CALLBACK &&callback, sl loc = sl::current())
-{
-  return perform(callback, 3, loc);
 }
 } // namespace pqxx
 //@}
