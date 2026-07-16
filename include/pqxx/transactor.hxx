@@ -143,7 +143,7 @@ perform(TRANSACTION_CALLBACK &&callback, int attempts = 3)
         throw;
     }
   }
-  PQXX_UNREACHABLE;
+  throw internal_error{"Reached unreachable transactor state."};
 }
 } // namespace pqxx
 //@}
