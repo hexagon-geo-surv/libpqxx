@@ -1,4 +1,4 @@
-/* Definition of libpqxx exception classes.
+/* Definition of libpqxx exception types.
  *
  * pqxx::sql_error, pqxx::broken_connection, pqxx::in_doubt_error, ...
  *
@@ -27,7 +27,7 @@
 namespace pqxx
 {
 /**
- * @addtogroup exception Exception classes
+ * @addtogroup exception Exception types
  *
  * All exception types thrown by libpqxx are derived from @ref pqxx::failure,
  * so that should be your starting point in exploring them.  When you write a
@@ -37,7 +37,7 @@ namespace pqxx
  * the exception is a libpqxx exception, you can get a lot of extra information
  * that's not normally available in exceptions.
  *
- * There is no multiple inheritance in this class hierarchy.  That means that
+ * There is no multiple inheritance in this type hierarchy.  That means that
  * the different kinds of libpqxx exception are not reflected in inheritance
  * from `std::logic_error,` `std::runtime_error`, and so on.  They are _all_
  * derived from @ref pqxx::failure (whether directly or indirectly), which in
@@ -58,7 +58,7 @@ namespace pqxx
  * So as of libpqxx 8, if you want more detail in how you handle different
  * types of exceptions, you use member functions, mostly at run time.  All of
  * the properties are available right from the top down, in the @ref failure
- * base class.  Some of the strings will not apply to all types of exception,
+ * base type.  Some of the strings will not apply to all types of exception,
  * but in those cases, they will simply be empty strings.
  *
  * In libpqxx, the exception hierarchy exists not for taxonomy's sake but to
@@ -66,12 +66,12 @@ namespace pqxx
  * effort from you.  In most cases, when an exception occurs, both the safest
  * and the easiest thing to do is drop the objects involved in the error,
  * report what happened, and move on from a reliable state.  That is what these
- * classes are here to support.
+ * types are here to support.
  *
  * @{
  */
 
-/// Base class for all exceptions specific to libpqxx.
+/// Base type for all exceptions specific to libpqxx.
 struct PQXX_LIBEXPORT failure : std::exception
 {
   failure(failure const &) = default;
@@ -292,7 +292,7 @@ private:
 };
 
 
-/// Exception class for lost or failed backend connection.
+/// Exception type for lost or failed backend connection.
 /**
  * @warning When this happens on Unix-like systems, you may also get a SIGPIPE
  * signal.  That signal aborts the program by default, so if you wish to be
@@ -366,11 +366,11 @@ struct PQXX_LIBEXPORT variable_set_to_null : failure
 };
 
 
-/// Exception class for failed queries.
+/// Exception type for failed queries.
 /** Carries, in addition to a regular error message, a copy of the failed query
  * and (if available) the SQLSTATE value accompanying the error.
  *
- * These exception classes follow, roughly, the two-level hierarchy defined by
+ * These exception types follow, roughly, the two-level hierarchy defined by
  * the PostgreSQL SQLSTATE error codes (see Appendix A of the PostgreSQL
  * documentation corresponding to your server version).  This is not a complete
  * mapping though.  There are other differences as well, e.g. the error code
@@ -403,7 +403,7 @@ struct PQXX_LIBEXPORT sql_error : public failure
 };
 
 
-/// Exception class for mis-communication with the server.
+/// Exception type for mis-communication with the server.
 /** This happens when the conversation between libpq and the server gets messed
  * up.  There aren't many situations where this happens, but one known instance
  * is when you call a parameterised or prepared statement with the wrong number
@@ -966,7 +966,7 @@ struct PQXX_LIBEXPORT too_many_connections : broken_connection
 
 
 /// PL/pgSQL error.
-/** Exceptions derived from this class are errors from PL/pgSQL procedures.
+/** Exceptions derived from this type are errors from PL/pgSQL procedures.
  */
 struct PQXX_LIBEXPORT plpgsql_error : sql_error
 {
