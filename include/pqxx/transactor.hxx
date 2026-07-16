@@ -127,18 +127,19 @@ perform(TRANSACTION_CALLBACK &&callback, int attempts, sl loc = sl::current())
     }
     catch (insufficient_resources const &)
     {
-      // Server is benig overloaded.  Back off.
+      // Server is being overloaded.  Back off.
       throw;
     }
     catch (too_many_connections const &)
     {
-      // Server is benig overloaded.  Back off.
+      // Server is being overloaded.  Back off.
       throw;
     }
     }
     catch (failure const &)
     {
-      // Some other database-related failure.
+      // Some other database-related failure.  Retry, unless we've run out of
+      // attempts.
       if (attempts <= 1)
         throw;
     }
