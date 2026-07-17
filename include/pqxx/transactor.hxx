@@ -100,8 +100,7 @@ namespace pqxx
  */
 template<typename TRANSACTION_CALLBACK>
 inline std::invoke_result_t<TRANSACTION_CALLBACK>
-perform(TRANSACTION_CALLBACK &&callback, int attempts = 3)
-
+perform(TRANSACTION_CALLBACK &&callback, int attempts = 3, sl = sl::current())
 {
   if (attempts <= 0)
     throw std::invalid_argument{
@@ -144,6 +143,15 @@ perform(TRANSACTION_CALLBACK &&callback, int attempts = 3)
     }
   }
   throw internal_error{"Reached unreachable transactor state."};
+}
+
+
+template<typename TRANSACTION_CALLBACK>
+[[deprecated("No soruce_location needed.")]] inline std::invoke_result_t<
+  TRANSACTION_CALLBACK>
+perform(TRANSACTION_CALLBACK &&callback, sl loc)
+{
+  return perform(std::forward(callback), 3, loc);
 }
 } // namespace pqxx
 //@}
