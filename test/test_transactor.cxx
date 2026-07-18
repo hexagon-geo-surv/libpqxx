@@ -50,6 +50,39 @@ void test_transactor_newstyle_retries_broken_connection(pqxx::test::context &)
 }
 
 
+void test_transactor_newstyle_does_not_retry_insufficient(
+  pqxx::test::context &)
+{
+  int counter{0};
+  auto const &callback{[&counter] {
+    ++counter;
+    if (counter == 1)
+      throw pqxx::insufficent_resources{"Help, I'm overloaded!  Back off."};
+    return counter;
+  }};
+
+  int const result{pqxx::perform(callback)};
+  PQXX_CHECK_EQUAL(result, 2);
+  PQXX_CHECK_EQUAL(counter, result);
+}
+
+
+void test_transactor_newstyle_does_not_retry_too_many(pqxx::test::context &)
+{
+  int counter{0};
+  auto const &callback{[&counter] {
+    ++counter;
+    if (counter == 1)
+      throw pqxx::too_many_connections{"Help, I'm overloaded!  Back off."};
+    return counter;
+  }};
+
+  int const result{pqxx::perform(callback)};
+  PQXX_CHECK_EQUAL(result, 2);
+  PQXX_CHECK_EQUAL(counter, result);
+}
+
+
 void test_transactor_newstyle_retries_rollback(pqxx::test::context &)
 {
   int counter{0};
@@ -73,6 +106,20 @@ void test_transactor_newstyle_does_not_retry_in_doubt_error(
   auto const &callback{[&counter] {
     ++counter;
     throw pqxx::in_doubt_error("Simulated error");
+  }};
+
+  PQXX_CHECK_THROWS(pqxx::perform(callback), pqxx::in_doubt_error);
+  PQXX_CHECK_EQUAL(counter, 1, "Transactor retried after in_doubt_error.");
+}
+
+
+void test_transactor_newstyle_does_not_retry_statement_completion_unknown(
+  pqxx::test::context &)
+{
+  int counter{0};
+  auto const &callback{[&counter] {
+    ++counter;
+    throw pqxx::statement_completion_unknown("Simulated error");
   }};
 
   PQXX_CHECK_THROWS(pqxx::perform(callback), pqxx::in_doubt_error);
@@ -115,8 +162,11 @@ void test_transactor(pqxx::test::context &tctx)
   test_transactor_newstyle_can_return_void(tctx);
   test_transactor_newstyle_completes_upon_success(tctx);
   test_transactor_newstyle_retries_broken_connection(tctx);
+  test_transactor_newstyle_does_not_retry_insufficient(ctx);
+  test_transactor_newstyle_does_not_retry_too_many(ctx);
   test_transactor_newstyle_retries_rollback(tctx);
   test_transactor_newstyle_does_not_retry_in_doubt_error(tctx);
+  test_transactor_newstyle_does_not_retry_statement_completion_unknown(ctx);
   test_transactor_newstyle_does_not_retry_other_error(tctx);
   test_transactor_newstyle_repeats_up_to_given_number_of_attempts(tctx);
 }
