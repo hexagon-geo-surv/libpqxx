@@ -99,8 +99,8 @@ namespace pqxx
  * @return Whatever your callback returns.
  */
 template<typename TRANSACTION_CALLBACK>
-inline std::invoke_result_t<TRANSACTION_CALLBACK>
-perform(TRANSACTION_CALLBACK &&callback, int attempts = 3, sl = sl::current())
+inline std::invoke_result_t<TRANSACTION_CALLBACK> perform(
+  TRANSACTION_CALLBACK &&callback, int attempts = 3, sl loc = sl::current())
 {
   if (attempts <= 0)
     throw std::invalid_argument{
@@ -142,7 +142,7 @@ perform(TRANSACTION_CALLBACK &&callback, int attempts = 3, sl = sl::current())
         throw;
     }
   }
-  throw internal_error{"Reached unreachable transactor state."};
+  throw internal_error{"Reached unreachable transactor state.", loc};
 }
 
 
