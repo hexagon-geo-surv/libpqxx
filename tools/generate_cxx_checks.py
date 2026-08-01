@@ -30,7 +30,7 @@ from typing import cast
 # (which the configuration will either define or not define depending on
 # whether there is support for the corresponding feature), followed by the
 # name of the C++ feature test macro that we will need to check in order to
-# determinue whether that feature is present.
+# determine whether that feature is present.
 CONFIG = "cxx_features.txt"
 
 
