@@ -375,7 +375,7 @@ occurring in the file.
 	${with_postgres_libpath})
 
 
-# Remove redundant occurrances of -lpq
+# Remove redundant occurrences of -lpq
 LIBS=[$(echo "$LIBS" | sed -e 's/-lpq * -lpq\>/-lpq/g')]
 
 AC_PROG_MAKE_SET

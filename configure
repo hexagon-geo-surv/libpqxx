@@ -21220,7 +21220,7 @@ fi
 
 
 
-# Remove redundant occurrances of -lpq
+# Remove redundant occurrences of -lpq
 LIBS=$(echo "$LIBS" | sed -e 's/-lpq * -lpq\>/-lpq/g')
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether ${MAKE-make} sets \$(MAKE)" >&5

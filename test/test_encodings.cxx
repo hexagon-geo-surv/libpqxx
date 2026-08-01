@@ -46,6 +46,7 @@ auto const eels<pqxx::encoding_group::two_tier>{
 /// ASCII-safe: German.
 template<>
 auto const eels<pqxx::encoding_group::ascii_safe>{
+   // codespell:ignore-next-line
   "Mein Luftkissenfahrzeug ist voll mit Aalen."sv};
 /// GB18030: Simplified Chinese.
 template<>

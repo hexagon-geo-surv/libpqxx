@@ -281,7 +281,7 @@ void test_parse_bad_range(pqxx::test::context &)
   using conv_err = pqxx::conversion_error;
   using traits = pqxx::string_traits<range>;
   constexpr std::string_view bad_ranges[]{
-    "",   "x",       "e",          "empt",       "emptyy",   "()",
+    "",   "x",       "e",          "empt",       "empty",   "()",
     "[]", "(empty)", "(empty, 0)", "(0, empty)", ",",        "(,",
     ",)", "(1,2,3)", "(4,5x)",     "(null, 0)",  "[0, 1.0]", "[1.0, 0]",
   };
