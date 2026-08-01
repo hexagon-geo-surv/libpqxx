@@ -177,7 +177,7 @@ def write_header(stream, template_path=None):
     stream.write(OUTPUT_HEADER.format(script=script))
     if template_path is not None:
         stream.write("#\n")
-        stream.write("# Generated from template '%s'.\n" % template_path)
+        stream.write(f"# Generated from template '{template_path}'.\n")
     stream.write(hr)
 
 
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     try:
         template_path, output_path = parse_args()
     except ArgumentError as error:
-        stderr.write("%s\n" % error)
+        stderr.write(f"{error}\n")
         sys.exit(2)
 
     input_stream = open_stream(template_path, stdin, "r")
