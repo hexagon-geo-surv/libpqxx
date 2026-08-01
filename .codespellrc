@@ -1,0 +1,3 @@
+[codespell]
+skip = autom4te.cache,config,configure,configure~,libtool
+ignore-words-list = parm,parms,doub
