@@ -7,11 +7,6 @@ Produces M4 "code" which evaluates to the input text.
 It's not easy to read plain text from an input file in M4, without having it
 expanded as M4.  Sometimes all we want is literal text!
 """
-from __future__ import (
-    absolute_import,
-    print_function,
-    unicode_literals,
-)
 
 from argparse import ArgumentParser
 from sys import (

@@ -16,12 +16,6 @@ The available template commands are:
 Copyright (c) 2000-2026, Bart Samwel and Jeroen T. Vermeulen.
 """
 
-from __future__ import (
-    absolute_import,
-    print_function,
-    unicode_literals,
-)
-
 from argparse import (
     ArgumentError,
     ArgumentParser,
