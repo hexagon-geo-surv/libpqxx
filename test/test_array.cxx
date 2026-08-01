@@ -626,9 +626,9 @@ void test_array_parses_quoted_strings(pqxx::test::context &)
     b.at(0),
     "\203\\"
     "");
-  // If encoding support didn't work properly, puting a backslash in front
+  // If encoding support didn't work properly, putting a backslash in front
   // would probably only get applied to the first byte in the character, and
-  // turn that embedded byte bcak into a backslash.
+  // turn that embedded byte back into a backslash.
   PQXX_CHECK_EQUAL(
     b.at(1),
     "\203\\"

@@ -155,7 +155,7 @@ cpplint() {
         cat <<EOF >&2
 Could not find compile flags for clang-tidy run.
 
-Run this script from a build directry prepared with either configure or cmake.
+Run this script from a build directory prepared with either configure or cmake.
 EOF
         exit 1
     fi

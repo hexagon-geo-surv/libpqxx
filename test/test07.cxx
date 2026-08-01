@@ -76,7 +76,7 @@ void test_007(pqxx::test::context &)
       PQXX_CHECK_EQUAL(fctype, rctype);
     }
 
-    // For each occurring year, write converted date back to whereever it may
+    // For each occurring year, write converted date back to wherever it may
     // occur in the table.  Since we're in a transaction, any changes made by
     // others at the same time will not affect us.
     for (auto const &c : conversions)

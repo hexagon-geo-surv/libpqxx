@@ -198,7 +198,7 @@ std::chrono::year_month_day
 string_traits<std::chrono::year_month_day>::from_string(
   std::string_view text, sl loc)
 {
-  // We can't just re-use the std::chrono::year conversions, because the "BC"
+  // We can't just reuse the std::chrono::year conversions, because the "BC"
   // suffix comes at the very end.
   if (std::size(text) < 9)
     throw conversion_error{make_parse_error(text), loc};

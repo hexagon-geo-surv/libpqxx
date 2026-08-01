@@ -244,7 +244,7 @@ void query_customers(pqxx::connection &cx)
 
   // Or, if you prefer a callback-based style, for_query() takes a query and a
   // callback.  It executes the query, iterates over the result rows, calling
-  // your callback with the row's respective field values as argments.  It
+  // your callback with the row's respective field values as arguments.  It
   // detects the parameter types your callback expects, and converts the fields
   // to those respective types.
   std::cout << "That same data again:\n";

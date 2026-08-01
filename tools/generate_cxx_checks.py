@@ -27,10 +27,10 @@ from typing import cast
 # * a tuple of macro names.
 #
 # In that last case, the line must consist of a libpqxx feature macro name
-# (which the configuration will either define or not define depening on whether
-# there is support for the corresponding feature), followed by the name of the
-# C++ feature test macro that we will need to check in order to determinue
-# whether that feature is present.
+# (which the configuration will either define or not define depending on
+# whether there is support for the corresponding feature), followed by the
+# name of the C++ feature test macro that we will need to check in order to
+# determinue whether that feature is present.
 CONFIG = "cxx_features.txt"
 
 

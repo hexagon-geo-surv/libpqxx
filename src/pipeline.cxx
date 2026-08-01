@@ -275,7 +275,7 @@ void pqxx::pipeline::obtain_dummy(sl loc)
 {
   conversion_context const c{{}, loc};
 
-  // Allocate once, re-use across invocations.
+  // Allocate once, reuse across invocations.
   static auto const text{
     std::make_shared<std::string>("[DUMMY PIPELINE QUERY]")};
 

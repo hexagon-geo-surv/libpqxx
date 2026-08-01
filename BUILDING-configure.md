@@ -96,7 +96,7 @@ Here are some popular `configure` options:
 * `--with-postgres-include=$DIR` looks for the libpq headers in `$DIR`.
 * `--prefix=$PATH` prepares to install libpqxx in `$PATH`.
 * `--enable-shared` enables compilation of libpqxx as a shared library.
-* `--disable-shared` disbles compilation of libpqxx as a shared library.
+* `--disable-shared` disables compilation of libpqxx as a shared library.
 * `--enable-static` enables compilation of libpqxx as a static library.
 * `--disable-static` disables compilation of libpqxx as a static library.
 * `--help` shows you a lot more of the options.

@@ -1,7 +1,7 @@
 Statement parameters                                        {#parameters}
 ====================
 
-In an SQL statement (including a prepared statemen), you may write special
+In an SQL statement (including a prepared statement), you may write special
 _placeholders_ in the query text.  They look like `$1`, `$2`, and so on.
 
 When executing the query later, you pass parameter values.  The call will

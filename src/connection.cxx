@@ -1053,7 +1053,7 @@ pqxx::connection::read_copy_line(sl loc)
 {
   char *buf{nullptr};
 
-  // Allocate once, re-use across invocations.
+  // Allocate once, reuse across invocations.
   static auto const q{std::make_shared<std::string>("[END COPY]")};
 
   auto const line_len{PQgetCopyData(real_conn(m_conn), &buf, false)};

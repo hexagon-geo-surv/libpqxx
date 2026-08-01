@@ -24,7 +24,7 @@ void test_072(pqxx::test::context &)
   // See that we can process the queries without stumbling over the error
   P.complete();
 
-  // We should be able to get the first result, which preceeds the error
+  // We should be able to get the first result, which precedes the error
   auto const res_1{P.retrieve(id_1).at(0).at(0).as<int>()};
   PQXX_CHECK_EQUAL(res_1, 1);
 

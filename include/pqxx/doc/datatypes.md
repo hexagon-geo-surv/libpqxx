@@ -3,7 +3,7 @@ Supporting additional data types                              {#datatypes}
 
 Communication with the database mostly happens in a text format.  When you
 include an integer value in a query, either you use `to_string` to convert it
-to that text format, or you pass it as a paraemeter and libpqxx does it for you
+to that text format, or you pass it as a parameter and libpqxx does it for you
 under the bonnet.  When you get a query result field "as a float," libpqxx
 converts from the text format to a floating-point type.  These conversions are
 everywhere in libpqxx.
@@ -388,7 +388,7 @@ better to waste a few bytes of space than to spend a lot of time computing
 the exact buffer space you need.  And failing the conversion because you
 under-budgeted the buffer is worst of all.
 
-Make `size_buffer` a `constexpr` function if you can.  It may sometiems allow
+Make `size_buffer` a `constexpr` function if you can.  It may sometimes allow
 the caller to allocate the buffer on the stack, with a size known at compile
 time.
 
@@ -420,7 +420,7 @@ safe to leave this out; it's _just_ an optimisation for when you're completely
 sure that it's safe.
 
 Make sure this definition is visible wherever you call libpqxx code that may
-call your conversoin.
+call your conversion.
 
 Do not do this if a string representation of your type may contain a comma;
 semicolon; parenthesis; brace; quote; backslash; newline; or any other

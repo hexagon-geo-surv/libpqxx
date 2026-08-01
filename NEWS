@@ -233,7 +233,7 @@
 7.7.1
  - When you build libpqxx, configure the compiler's C++ version yourself!
  - Finally fix a long-standing silly warning in autogen.
- - Fix `digit_to_number` not being found on some comilers.  (#518, #519)
+ - Fix `digit_to_number` not being found on some compilers.  (#518, #519)
  - In audit mode, define `_FORTIFY_SOURCE` to enable some extra checks.
  - Make more functions `constexpr`.  Nothing particularly useful though.
  - Make more functions `noexcept`.
@@ -354,7 +354,7 @@
  - Removed `transaction_base::classname()`.  Did anyone ever use it?
  - Internal reorg of the `transaction` and `transactionfocus` hierarchies.
  - Removed the only case of virtual inheritance, related to `namedclass`.
- - Internal `concat()` for faster, simpler string concatentation.
+ - Internal `concat()` for faster, simpler string concatenation.
  - Fix compile omission in string conversions for `nullptr_t`.
  - `pqxx::size_buffer()` can now size multiple values at once.
  - `multi_to_string()` to convert multiple values into one `std::string`.
@@ -542,7 +542,7 @@
  - Work around Visual Studio 2017 not supporting ISO 646.
 6.3.0
  - New "table stream" classes by Joseph Durel: stream_from/stream_to.
- - Support weird characters in more identifiers: cursors, notifcations, etc.
+ - Support weird characters in more identifiers: cursors, notifications, etc.
  - Connection policies are deprecated.  It'll all be one class in 7.0!
  - Connection deactivation/reactivation is deprecated.
  - Some items that were documented as deprecated are now also declared as such.

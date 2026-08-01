@@ -704,7 +704,7 @@ public:
    * processes them by checking for a matching notification handler, and if it
    * finds one, invoking it.  If there is no matching handler, nothing happens.
    *
-   * If your notifcation handler throws an exception, `get_notifs()` will just
+   * If your notification handler throws an exception, `get_notifs()` will just
    * propagate it back to you.  (This is different from the old
    * `notification_receiver` mechanism, which would merely log them.)
    *
@@ -731,7 +731,7 @@ public:
    * @ref get_notifs repeatedly until it returns zero.  This allows you to
    * handle other events besides notifications with a single wait point.
    *
-   * If your notifcation handler throws an exception, this function will just
+   * If your notification handler throws an exception, this function will just
    * propagate it on up to you.  (This is different from the old
    * `notification_receiver` mechanism, which would merely log them.)
    *
@@ -756,7 +756,7 @@ public:
    * @ref get_notifs repeatedly until it returns zero.  This allows you to
    * handle other events besides notifications with a single wait point.
    *
-   * If your notifcation handler throws an exception, this function will just
+   * If your notification handler throws an exception, this function will just
    * propagate it on up to you.  (This is different from the old
    * `notification_receiver` mechanism, which would merely log them.)
    *
@@ -981,7 +981,7 @@ public:
   }
 
   /// Escape string for use as SQL string literal, into `buffer`.
-  /** Use this variant when you want to re-use the same buffer across multiple
+  /** Use this variant when you want to reuse the same buffer across multiple
    * calls.  If that's not the case, or convenience and simplicity are more
    * important, use the single-argument variant.
    *
@@ -1022,7 +1022,7 @@ public:
   }
 
   /// Escape binary string for use as SQL string literal, into `buffer`.
-  /** Use this variant when you want to re-use the same buffer across multiple
+  /** Use this variant when you want to reuse the same buffer across multiple
    * calls.  If that's not the case, or convenience and simplicity are more
    * important, use the single-argument variant.
    *

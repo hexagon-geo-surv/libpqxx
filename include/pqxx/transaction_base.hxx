@@ -218,7 +218,7 @@ public:
   }
 
   /// Escape binary string for use as SQL string literal, into `buffer`.
-  /** Use this variant when you want to re-use the same buffer across multiple
+  /** Use this variant when you want to reuse the same buffer across multiple
    * calls.  If that's not the case, or convenience and simplicity are more
    * important, use the single-argument variant.
    *
@@ -538,7 +538,7 @@ public:
    * specify.  Unlike with the "exec" functions, processing can start before
    * all the data from the server is in.
    *
-   * @warning You can't pass parmaeters to a streaming query.  This is a
+   * @warning You can't pass parameters to a streaming query.  This is a
    * limitation at a lower level in the software stack.  You can work around
    * this by defining a view or function that you can then call without
    * parameters in the streaming query; or you can compose query strings that

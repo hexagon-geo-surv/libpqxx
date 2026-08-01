@@ -321,7 +321,7 @@ private:
 
   /// Current row's fields' text, combined into one reusable string.
   /** We carry this buffer over from one invocation to the next, not because we
-   * need the data, but just so we can re-use the space.  It saves us having to
+   * need the data, but just so we can reuse the space.  It saves us having to
    * re-allocate it every time.
    */
   std::string m_row;

@@ -8,7 +8,7 @@ We need to teach both of these to test things like "does this compiler
 environment support `std::to_chars` for floating-point types?"
 
 In both build systems we test these things by trying to compile a particular
-snippet of code, found in this directry, and seeing whether that succeeds.
+snippet of code, found in this directory, and seeing whether that succeeds.
 These are the snippets with names like `PQXX_*.cxx`.
 
 To avoid duplicating those snippets for multiple build systems, we put them

@@ -119,7 +119,7 @@ public:
   /// Construct a `zview` from a C-style string.
   /** @warning This scans the string to discover its length.  So if you need to
    * do it many times, it's probably better to create the `zview` once and
-   * re-use it.
+   * reuse it.
    */
   PQXX_ZARGS constexpr zview(char const str[]) noexcept(
     noexcept(std::string_view{str})) :

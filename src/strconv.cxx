@@ -217,7 +217,7 @@ constexpr bool valid_infinity_string(std::string_view text) noexcept
 /** We use this to work around missing std::to_chars for floating-point types.
  *
  * Initialising the stream (including locale and tweaked precision) seems to
- * be expensive.  So, create thread-local instances which we re-use.  It's a
+ * be expensive.  So, create thread-local instances which we reuse.  It's a
  * lockless way of keeping global variables thread-safe, basically.
  *
  * The stream initialisation happens once per thread, in the constructor.

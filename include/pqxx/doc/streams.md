@@ -142,7 +142,7 @@ columns (two integers and two strings), streaming even just a thousand rows was
 considerably faster than a regular query.
 
 If your network connection to the database is slow, however, that may make
-streaming a bit _less_ effcient.  There is a bit more communication back and
+streaming a bit _less_ efficient.  There is a bit more communication back and
 forth between the client and the database to set up a stream.  This overhead
 takes a more or less constant amount of time, so for larger data sets it will
 tend to become insignificant compared to the other performance costs.

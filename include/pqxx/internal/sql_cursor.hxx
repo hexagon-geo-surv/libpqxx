@@ -17,7 +17,7 @@ namespace pqxx::internal
 /** Thin wrapper around an SQL cursor, with SQL's ideas of positioning.
  *
  * SQL cursors have pre-increment/pre-decrement semantics, with on either end
- * of the result set a special position that does not repesent a row.  This
+ * of the result set a special position that does not represent a row.  This
  * class models SQL cursors for the purpose of implementing more C++-like
  * semantics on top.
  *

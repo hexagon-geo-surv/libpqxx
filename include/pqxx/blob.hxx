@@ -87,7 +87,7 @@ public:
 
   /// Read up to `size` bytes of the object into `buf`.
   /** Uses a buffer that you provide, resizing it as needed.  If it suits you,
-   * this lets you allocate the buffer once and then re-use it multiple times.
+   * this lets you allocate the buffer once and then reuse it multiple times.
    *
    * Resizes `buf` as needed.
    *

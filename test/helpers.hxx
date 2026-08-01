@@ -401,7 +401,7 @@ inline void check_succeeds(
 template<typename EXC, std::invocable F>
 inline void check_throws(
   F &&f, char const text[],
-  std::string desc = "This code did not thow the expected exception.",
+  std::string desc = "This code did not throw the expected exception.",
   pqxx::sl loc = sl::current())
 {
   try
@@ -451,7 +451,7 @@ inline void check_throws(
 template<std::invocable F>
 inline void check_throws_exception(
   F &&f, char const text[],
-  std::string desc = "This code did not thow a std::exception.",
+  std::string desc = "This code did not throw a std::exception.",
   pqxx::sl loc = sl::current())
 {
   try
