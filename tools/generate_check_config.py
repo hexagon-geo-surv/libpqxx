@@ -9,14 +9,13 @@ where that succeeds, define the C++ macro of the same name as the base name
 of the check snippet.
 """
 
+import os.path
 from argparse import (
     ArgumentParser,
     Namespace,
 )
-import os.path
 from pathlib import Path
 from textwrap import dedent
-
 
 # Name of the autoconf configuration script that we produce.  (Lives in the
 # main source directory.)

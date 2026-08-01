@@ -6,6 +6,8 @@ Prints any of the flags that are accepted when used in combination with the
 base command line and the previously accepted flags.
 """
 
+import shlex
+import sys
 from argparse import (
     ArgumentParser,
     Namespace,
@@ -13,13 +15,10 @@ from argparse import (
 from contextlib import nullcontext
 from os import devnull
 from pathlib import Path
-import shlex
 from subprocess import (
     DEVNULL,
     run,
 )
-import sys
-
 
 EPILOG = """The flags file may contain comments, on lines starting with '#'
 as the first non-whitespace character.  Any whitespace between flags other than

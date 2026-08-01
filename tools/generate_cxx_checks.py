@@ -9,15 +9,14 @@ Reads the test libpqxx feature macro names, as well as the C++ feature check
 macros that control them, from cxx_features.txt in the source tree.
 """
 
+import os.path
 from argparse import (
     ArgumentParser,
     Namespace,
 )
-import os.path
 from pathlib import Path
 from textwrap import dedent
 from typing import cast
-
 
 # Name of the config file listing, one per line, the macros to test and set.
 #

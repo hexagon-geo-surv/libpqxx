@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-
 project = "libpqxx"
 copyright = "2000-2026, Jeroen T. Vermeulen"
 author = "Jeroen T. Vermeulen"

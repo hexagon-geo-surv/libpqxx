@@ -16,6 +16,8 @@ The available template commands are:
 Copyright (c) 2000-2026, Bart Samwel and Jeroen T. Vermeulen.
 """
 
+import os
+import sys
 from argparse import (
     ArgumentError,
     ArgumentParser,
@@ -23,14 +25,12 @@ from argparse import (
 )
 from contextlib import contextmanager
 from glob import glob
-import os
 from sys import (
     argv,
-    stdin,
     stderr,
+    stdin,
     stdout,
 )
-import sys
 from textwrap import dedent
 
 

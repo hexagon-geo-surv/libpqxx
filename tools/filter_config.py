@@ -12,13 +12,12 @@ So, we rewrite the header (or its template) to contain only the macro
 definitions with "PQXX" in the name.
 """
 
+import sys
 from argparse import (
     ArgumentParser,
     Namespace,
 )
 from pathlib import Path
-import sys
-
 
 # We prefix this to the header's text.  It suppresses a clang-tidy warning
 # about there not being an ifdef/define pair to prevent multiple inclusion.

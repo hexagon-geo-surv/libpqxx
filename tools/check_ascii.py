@@ -2,9 +2,9 @@
 
 """Check that all source files are pure ASCII."""
 
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
-import sys
 
 
 def find_source_files(srcdir: Path) -> list[Path]:

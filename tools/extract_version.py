@@ -5,10 +5,10 @@
 Version strings look like: "<major>.<minor>.<patch>".
 """
 
+import sys
 from argparse import ArgumentParser, Namespace
 from os import getenv
 from pathlib import Path
-import sys
 
 
 class Fail(Exception):
