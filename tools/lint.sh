@@ -174,7 +174,7 @@ pylint() {
     then
         ruff check -q "$SRCDIR"
     else
-        uv -q run --with=ruff==0.14.14 ruff check -q "$SRCDIR"
+        uv -q run --with=ruff==0.16.1 ruff check -q "$SRCDIR"
     fi
 
     if have_command pyrefly
